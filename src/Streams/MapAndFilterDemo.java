@@ -3,6 +3,7 @@ package Streams;
 
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MapAndFilterDemo {
@@ -56,6 +57,24 @@ public class MapAndFilterDemo {
 
         List<Integer> filterPrice = carList.stream().filter( x -> x.price > 3000).map( c -> c.price).toList();
         System.out.println(filterPrice);
+
+        List<Car> brandFilter = carList.stream().filter( x -> x.brand.startsWith("C")).toList();
+        System.out.println(brandFilter);
+
+
+        Comparator<Car> comparatorPrice = (c1,c2) -> {
+            return c1.price - c2.price;
+        };
+
+        carList.stream().sorted(comparatorPrice).forEach(System.out::println);
+
+         Car minCarPrice = carList.stream().min(comparatorPrice).get();
+         System.out.println("min price : " + minCarPrice);
+
+        //carList.stream().forEach( x -> System.out.println(x));
+        System.out.println(carList.stream().allMatch( x -> x.price == 2000));
+
+        System.out.println();
 
 
 
